@@ -1,0 +1,48 @@
+#:import MDBoxLayout kivymd.uix.boxlayout.MDBoxLayout
+#:import MDLabel kivymd.uix.label.MDLabel
+#:import MDButton kivymd.uix.button.MDButton
+#:import MDButtonText kivymd.uix.button.MDButtonText
+#:import MDTextField kivymd.uix.textfield.MDTextField
+#:import MDTextFieldHintText kivymd.uix.textfield.MDTextFieldHintText
+
+<Interface>:
+    orientation: 'vertical'
+    padding: dp(24)
+    spacing: dp(24)
+
+    Widget:
+        size_hint_y: 0.3
+
+    MDLabel:
+        text: 'Химический шпион'
+        halign: 'center'
+        font_size: '28sp'
+        size_hint_y: None
+        height: dp(60)
+
+    MDTextField:
+        id: members_count_field
+        mode: 'outlined'
+        input_filter: 'int'
+        size_hint_x: 0.9
+        pos_hint: {'center_x': 0.5}
+        size_hint_y: None
+        height: dp(56)
+
+        MDTextFieldHintText:
+            text: 'Введите количество участников'
+
+    MDButton:
+        id: start_button
+        size_hint_x: 0.9
+        size_hint_y: None
+        height: dp(64)
+        pos_hint: {'center_x': 0.5}
+
+        MDButtonText:
+            id: start_button_text
+            text: 'Нажмите чтобы начать игру'
+            font_size: '20sp'
+
+    Widget:
+        size_hint_y: 0.3
