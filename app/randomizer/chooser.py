@@ -2,7 +2,7 @@
 from random import randint
 
 
-def start(button, label, members_count: int):
+def start(button, label, members_count: int, on_finish=None):
     if not members_count:
         label.text = 'Введите корректное количиство игроков'
         return
@@ -35,13 +35,15 @@ def start(button, label, members_count: int):
     label.text = 'Передайте телефон человеку и нажмите еще раз'
 
     def on_click(instance):
-        show_roles(button, label, members_count, element, members, state)
+        show_roles(button, label, members_count,
+                   element, members, state, on_finish)
 
     button.bind(on_press=on_click)
     button._role_handler = on_click
 
 
-def show_roles(button, label, members_count, element, members, state):
+def show_roles(button, label, members_count: int, element: str,
+               members: list, state: dict, on_finish=None):
     i = state['index']
 
     if not state['showing_role']:
@@ -61,6 +63,8 @@ def show_roles(button, label, members_count, element, members, state):
         if old is not None:
             button.unbind(on_press=old)
             button._role_handler = None
+        if on_finish is not None:
+            on_finish()
         return
 
     label.text = 'Передайте телефон человеку и нажмите ещё раз'

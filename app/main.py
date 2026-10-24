@@ -8,16 +8,25 @@ from randomizer.chooser import start
 class Interface(MDBoxLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
+        self.game_running = False
 
     def on_kv_post(self, base_widget):
-        def on_start_press(instance):
-            text = self.ids.members_count_field.text
-            members_count = int(text) if text else 0
-            if members_count:
-                self.ids.start_button.unbind(on_press=on_start_press)
-            start(self.ids.start_button, self.ids.start_button_text, members_count)
+        self.ids.start_button.bind(on_press=self.on_start_press)
 
-        self.ids.start_button.bind(on_press=on_start_press)
+    def on_start_press(self, instance):
+        if self.game_running:
+            return
+        text = self.ids.members_count_field.text
+        members_count = int(text) if text else 0
+        if not members_count:
+            self.ids.start_button_text.text = 'Введите корректное количиство игроков'
+            return
+        self.game_running = True
+        start(self.ids.start_button, self.ids.start_button_text, members_count,
+              on_finish=self.on_game_finish)
+
+    def on_game_finish(self):
+        self.game_running = False
 
 
 class ChemistryImposterApp(MDApp):
