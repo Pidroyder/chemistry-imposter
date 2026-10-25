@@ -3,10 +3,7 @@ from random import randint
 
 
 def start(button, label, members_count: int, on_finish=None):
-    if not members_count:
-        label.text = 'Введите корректное количиство игроков'
-        return
-
+    '''Функция запуска игры'''
     elements = ['H\nводород', 'He\nгелий', 'Li\nлитий', 'Be\nбериллий', 'B\nбор', 'C\nуглерод', 'N\nазот',
                 'O\nкислород', 'F\nфтор', 'Ne\nнеон', 'Na\nнатрий', 'Mg\nмагний', 'Al\nалюминий', 'Si\nкремний',
                 'P\nфосфор', 'S\nсера', 'Cl\nхлор', 'Ar\nаргон', 'K\nкалий', 'Ca\nкальций', 'Sc\nскандий', 'Ti\nтитан',
@@ -25,9 +22,10 @@ def start(button, label, members_count: int, on_finish=None):
                 'Db\nдубний', 'Sg\nсиборгий', 'Bh\nборий', 'Hs\nхассий', 'Mt\nмейтнерий', 'Ds\nдармштадтий',
                 'Rg\nрентгений', 'Cn\nкоперниций', 'Nh\nнихоний', 'Fl\nфлеровий', 'Mc\nмосковий', 'Lv\nливерморий',
                 'Ts\nтеннессин', 'Og\nоганесон']
-    element = elements[randint(0, members_count - 1)]
+    element = elements[randint(0, len(elements) - 1)]
     members = [False for i in range(members_count)]
 
+    # Выбор шпиона
     members[randint(0, members_count - 1)] = True
 
     state = {'index': 0, 'showing_role': False}
@@ -44,6 +42,7 @@ def start(button, label, members_count: int, on_finish=None):
 
 def show_roles(button, label, members_count: int, element: str,
                members: list, state: dict, on_finish=None):
+    '''Показывает роли участникам'''
     i = state['index']
 
     if not state['showing_role']:
