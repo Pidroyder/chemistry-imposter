@@ -49,8 +49,10 @@ def show_roles(button, label, members_count: int, element: str,
     if not state['showing_role']:
         if members[i]:
             label.text = 'Ты шпион. Нажми и передай телефон следующему.'
+            label.color = (1, 0, 0, 1)
         else:
             label.text = f'{element}\nНажми и передай телефон следующему.'
+            label.color = (0, 1, 0, 1)
         state['showing_role'] = True
         return
 
@@ -59,12 +61,21 @@ def show_roles(button, label, members_count: int, element: str,
 
     if state['index'] >= members_count:
         label.text = 'Да начнется супный день'
+        label.color = (1, 0, 1, 1)
         old = getattr(button, '_role_handler', None)
         if old is not None:
             button.unbind(on_press=old)
-            button._role_handler = None
-        if on_finish is not None:
-            on_finish()
+
+        def reset(instance):
+            button.unbind(on_press=reset)
+            label.text = 'Нажмите чтобы начать игру'
+            label.color = (0, 0, 1, 1)
+            if on_finish is not None:
+                on_finish()
+
+        button.bind(on_press=reset)
+        button._role_handler = reset
         return
 
     label.text = 'Передайте телефон человеку и нажмите ещё раз'
+    label.color = (0, 0, 1, 1)
