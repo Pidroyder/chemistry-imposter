@@ -20,8 +20,9 @@
         theme_font_size: 'Custom'
         font_size: dp(40)
         size_hint_y: None
-        height: dp(60)
-        color: 0, 0, 1, 1
+        text_size: self.width, None
+        height: max(dp(60), self.texture_size[1])
+        color: 0, 0, .9, 1
 
     MDTextField:
         id: members_count_field
@@ -32,18 +33,19 @@
         size_hint_y: None
         height: dp(56)
         theme_text_color: 'Custom'
-        text_color_normal: 0, 0, 1, 1
-        text_color_focus: 0, 0, 1, 1
+        text_color_normal: 0, 0, .9, 1
+        text_color_focus: 0, 0, .9, 1
 
         MDTextFieldHintText:
-            text: 'Введите количество участников'
+            text: 'Введите число игроков'
 
     MDButton:
         id: start_button
         theme_bg_color: 'Custom'
+        theme_width: 'Custom'
         size_hint_x: .9
         size_hint_y: None
-        height: dp(100)
+        height: max(dp(100), (self._button_text.texture_size[1] + dp(32)) if self._button_text else dp(100))
         pos_hint: {'center_x': .5}
         md_bg_color: .05, .05, .2, 1
 
@@ -51,7 +53,12 @@
             id: start_button_text
             text: 'Нажмите чтобы начать игру'
             font_size: '20sp'
-            color: 0, 0, 1, 1
+            color: 0, 0, .9, 1
+            halign: 'center'
+            adaptive_size: False
+            adaptive_width: False
+            size_hint_x: None
+            width: root.ids.start_button.width - dp(48)
 
     Widget:
         size_hint_y: .3

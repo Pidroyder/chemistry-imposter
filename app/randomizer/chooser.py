@@ -51,7 +51,7 @@ def show_roles(button, label, members_count: int, element: str,
             label.color = (1, 0, 0, 1)
         else:
             label.text = f'{element}\nНажми и передай телефон следующему.'
-            label.color = (0, 1, 0, 1)
+            label.color = (0, .9, 0, 1)
         state['showing_role'] = True
         return
 
@@ -60,7 +60,7 @@ def show_roles(button, label, members_count: int, element: str,
 
     if state['index'] >= members_count:
         label.text = 'Да начнется супный день'
-        label.color = (1, 0, 1, 1)
+        label.color = (.9, 0, .9, 1)
         old = getattr(button, '_role_handler', None)
         if old is not None:
             button.unbind(on_press=old)
@@ -68,7 +68,7 @@ def show_roles(button, label, members_count: int, element: str,
         def reset(instance):
             button.unbind(on_press=reset)
             label.text = 'Нажмите чтобы начать игру'
-            label.color = (0, 0, 1, 1)
+            label.color = (0, 0, .9, 1)
             if on_finish is not None:
                 on_finish()
 
@@ -77,4 +77,4 @@ def show_roles(button, label, members_count: int, element: str,
         return
 
     label.text = 'Передайте телефон человеку и нажмите ещё раз'
-    label.color = (0, 0, 1, 1)
+    label.color = (0, 0, .9, 1)
